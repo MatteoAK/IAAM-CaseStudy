@@ -105,9 +105,5 @@ def main():
         disconnect_from_ib()
 
 if __name__ == "__main__":
-    try:
-        main()
-    except:
-        time.sleep(120)
-        main()
+    main()
         
