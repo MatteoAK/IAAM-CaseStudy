@@ -5,7 +5,9 @@ import datetime
 import pandas as pd
 from ib_insync import *
 import pytz
+import time
 
+time.sleep(120)
 # Set pandas display option
 pd.set_option('display.max_columns', None)
 
@@ -103,4 +105,9 @@ def main():
         disconnect_from_ib()
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except:
+        time.sleep(120)
+        main()
+        
