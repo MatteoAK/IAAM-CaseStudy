@@ -43,25 +43,25 @@ def place_order(contract, quantity, action):
                 
 def main():
     try:
-        if (datetime.datetime.now().weekday() in range(0,5)) and (datetime.datetime.now(eastern_tz).time()>datetime.time(4,0)) and (datetime.datetime.now(eastern_tz).time()<datetime.time(10, 30)):
+        if (datetime.datetime.now().weekday() in range(0,5)) and (datetime.datetime.now(eastern_tz).time()>datetime.time(4,0)) and (datetime.datetime.now(eastern_tz).time()<datetime.time(15, 30)):
 
             connect_to_ib()
             contract = get_forex_contract('USDJPY', 'JPY')
             ib.qualifyContracts(contract)
 
             # SMA periods
-            short_sma_period = 2
-            long_sma_period = 4
+            short_sma_period = 11
+            long_sma_period =117
             quantity = 1000
 
             i = 0
             ff = 0
-            while (datetime.datetime.now().weekday() in range(0,5)) and (datetime.datetime.now(eastern_tz).time()>datetime.time(4,0)) and (datetime.datetime.now(eastern_tz).time()<datetime.time(10, 30)):
+            while (datetime.datetime.now().weekday() in range(0,5)) and (datetime.datetime.now(eastern_tz).time()>datetime.time(4,0)) and (datetime.datetime.now(eastern_tz).time()<datetime.time(15, 30)):
                 print(i)
                 i += 1
 
                 # Fetch historical data (e.g., last 24 hours with 1-hour bars)
-                bars = fetch_historical_data(contract, '1 W', '15 mins')
+                bars = fetch_historical_data(contract, '3600 S', '5 secs')
                 df = util.df(bars)
 
                 # Calculate SMAs
@@ -88,7 +88,7 @@ def main():
                     ff += -quantity
 
 
-                # ib.sleep(5)  
+                ib.sleep(5)  
     except Exception as e:
         print(f"Error: {e}")
     finally:
